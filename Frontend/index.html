@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <pre id="painelResumo"></pre>
+
+    <!-- Carregar classe primeiro -->
+    <script src="Usuario.js"></script>
+    <script src="Discente.js"></script>
+    <script src="Adminstrador.js"></script>
+    <script src="Responsavel.js"></script>
+
+    <script>
+        const aluno = new Discente("Pedro", "pedro@exemplo.com", "");
+
+        document.getElementById("painelResumo").textContent =
+            aluno.GerarPainelResumo();
+    </script>
+</body>
+
+</html>
