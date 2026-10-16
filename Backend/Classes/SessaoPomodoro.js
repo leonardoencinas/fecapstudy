@@ -1,0 +1,3 @@
+class SessaoPomodoro extends SessaoEstudo {
+    
+}

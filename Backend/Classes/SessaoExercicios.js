@@ -1,0 +1,3 @@
+class SessaoExercicios extends SessaoEstudo {
+    
+}

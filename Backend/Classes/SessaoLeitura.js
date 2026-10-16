@@ -1,0 +1,3 @@
+class SessaoLeitura extends SessaoLeitura {
+    
+}
