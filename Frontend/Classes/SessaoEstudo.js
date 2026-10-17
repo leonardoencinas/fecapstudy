@@ -1,5 +1,5 @@
-class SessaoEstudo {
-
+class SessaoEstudo extends IExportavelJson {
+    
     constructor(disciplina, duracaoMinutos) {
         this.disciplina = disciplina;
         this.duracaoMinutos = duracaoMinutos;
@@ -15,6 +15,16 @@ class SessaoEstudo {
 
     GerarFeedback() {
         return `${this.ObterModalidade()} em ${this.disciplina.GetNome()} (${this.duracaoMinutos} min) -> +${this.CalcularXp()} XP`;
+    }
+
+    ParaJson() {
+
+        const dadosParaExportar = {
+            disciplina: this.disciplina,
+            duracaoMinutos: this.duracaoMinutos
+        };
+
+        return JSON.stringify(dadosParaExportar);
     }
 }
 

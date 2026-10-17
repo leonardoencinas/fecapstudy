@@ -1,10 +1,11 @@
-class MetaEstudo {
+class MetaEstudo extends IExportavelJson {
 
     #metaMinutosSemana;
     #minutosCumprido = 0;
 
     constructor(metaMinutosSemana, minutosCumpridos, novaMeta) {
 
+        super();
         this.RedefinirMeta(novaMeta);
     }
 
@@ -38,11 +39,27 @@ class MetaEstudo {
 
         const percentual = (this.#minutosCumprido / this.#metaMinutosSemana) * 100;
 
+        if (percentual > 100.0) {
+
+            percentual = 100;
+        }
+
         return Math.min(percentual, 100.0);
     }
 
     EstaCumprida() {
 
         return this.#minutosCumprido >= this.#metaMinutosSemana;
+    }
+
+    ParaJson() {
+
+        const dadosParaExportar = {
+            metaMinutosSemana: this.#metaMinutosSemana,
+            minutosCumpridos: this.#minutosCumprido,
+            percentual: this.CalcularPercentual()
+        };
+
+        return JSON.stringify(dadosParaExportar);
     }
 }
