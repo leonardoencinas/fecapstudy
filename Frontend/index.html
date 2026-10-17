@@ -1,50 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="description" content="Seu espaço para registrar estudos, acompanhar a meta e celebrar cada avanço.">
+    <title>FecapStudy · Meu espaço de estudos</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Defer espera o HTML ficar pronto e preserva a ordem abaixo. -->
+    <script defer src="Classes/Usuario.js"></script>
+    <script defer src="Classes/Administrador.js"></script>
+    <script defer src="Classes/Responsavel.js"></script>
+    <script defer src="Classes/Disciplina.js"></script>
+    <script defer src="Classes/SessaoEstudo.js"></script>
+    <script defer src="Classes/SessaoPomodoro.js"></script>
+    <script defer src="Classes/SessaoExercicios.js"></script>
+    <script defer src="Classes/SessaoLeitura.js"></script>
+    <script defer src="Classes/Discente.js"></script>
+    <script defer src="Classes/MetaEstudo.js"></script>
+    <script defer src="Classes/NotificadorWhatsapp.js"></script>
+    <script defer src="Classes/NotificadorEmail.js"></script>
+    <script defer src="app.js"></script>
 </head>
-
 <body>
-    <pre id="painelResumo"></pre>
+    <a class="pular-conteudo" href="#formularioEstudo">Ir para o formulário</a>
+    <header class="topo">
+        <div class="marca"><span class="marca-icone" aria-hidden="true">f.</span> Fecap<span>Study</span></div>
+        <span class="modo-local"><span aria-hidden="true"></span> Meu espaço de estudos</span>
+    </header>
 
-    <!-- Carregar classe primeiro -->
-    <script src="./Classes/Usuario.js"></script>
-    <script src="./Classes/Discente.js"></script>
-    <script src="./Classes/Administrador.js"></script>
-    <script src="./Classes/Responsavel.js"></script>
+    <main>
+        <section class="apresentacao" aria-labelledby="tituloPagina">
+            <div>
+                <p class="sobretitulo">APRENDER É CONSTRUIR, TODO DIA.</p>
+                <h1 id="tituloPagina">Pequenos estudos.<br><span>Grandes conquistas.</span></h1>
+                <p class="subtitulo">Registre seu foco de hoje e acompanhe o quanto você já avançou.</p>
+            </div>
+            <div class="selo-xp"><span class="estrela" aria-hidden="true">✦</span><div><strong id="totalXp">0 XP</strong><span>Experiência acumulada</span></div></div>
+        </section>
 
-    <script>
-        const administrador = new Administrador(
-            1, "Pedro", "pedro@exemplo.com", "senhaTeste", "Coordenação PI"
-        );
+        <section class="perfis" aria-label="Perfis">
+            <article class="perfil">
+                <span class="avatar" aria-hidden="true">D</span>
+                <div><h2>Quem aprende</h2><pre id="resumoDiscente"></pre></div>
+            </article>
+            <article class="perfil">
+                <span class="avatar responsavel" aria-hidden="true">R</span>
+                <div><h2>Quem acompanha</h2><pre id="resumoResponsavel"></pre></div>
+            </article>
+        </section>
 
-        const responsavel = new Responsavel(
-            2, "Maria", "maria@exemplo.com", "senhaTeste", "Mãe"
-        );
-        
-        const aluno = new Discente(
-            3, "Ana", "ana@exemplo.com", "senhaTeste", "20260001"
-        );
+        <div class="area-estudo">
+            <section class="cartao formulario-cartao" aria-labelledby="tituloFormulario">
+                <div class="cabecalho-cartao"><span class="etapa">01</span><div><h2 id="tituloFormulario">Registrar um estudo</h2><p>Reserve um momento. Dê o próximo passo.</p></div></div>
+                <form id="formularioEstudo">
+                    <div class="campo"><label for="disciplina">Disciplina</label><select id="disciplina" required></select></div>
+                    <div class="campo"><label for="modalidade">Como você estudou?</label><select id="modalidade" required><option value="Pomodoro">Pomodoro</option><option value="Exercicios">Exercícios</option><option value="Leitura">Leitura</option></select></div>
+                    <div class="campos-lado-a-lado">
+                        <div class="campo"><label for="minutos">Duração (minutos)</label><input id="minutos" type="number" min="1" step="1" placeholder="Ex.: 25" required inputmode="numeric"><small>Tempo dedicado ao estudo.</small></div>
+                        <div class="campo"><label id="rotuloExtra" for="dadoExtra">Ciclos concluídos</label><input id="dadoExtra" type="number" min="1" step="1" placeholder="Ex.: 1" required inputmode="numeric" aria-describedby="dicaExtra"><small id="dicaExtra">Quantos ciclos de foco você completou?</small></div>
+                    </div>
+                    <button class="botao-principal" type="submit">Registrar estudo <span aria-hidden="true">↗</span></button>
+                    <p id="mensagemFormulario" class="mensagem" role="status" aria-live="polite" aria-atomic="true"></p>
+                </form>
+            </section>
 
-        // 2. Guarda o resumo ANTES de adicionar XP.
-        const resumoInicial = aluno.GerarPainelResumo();
+            <aside class="cartao meta-cartao" aria-labelledby="tituloMeta">
+                <div class="cabecalho-cartao"><span class="etapa">02</span><div><h2 id="tituloMeta">Sua meta semanal</h2><p>Constância vale mais que pressa.</p></div></div>
+                <div class="meta-valor"><strong id="percentualMeta">0%</strong><span>da meta<br>concluída</span></div>
+                <label class="sr-only" for="barraProgresso">Progresso da meta semanal</label>
+                <progress id="barraProgresso" value="0" max="100">0%</progress>
+                <p id="minutosMeta" class="minutos-meta">0 de 200 min</p>
+                <p id="incentivoMeta" class="incentivo-meta">Faltam 200 minutos para alcançar sua meta.</p>
+                <div class="notificar-area">
+                    <p>Compartilhe cada avanço.</p>
+                    <button id="botaoNotificar" class="botao-secundario" type="button">Notificar responsável <span aria-hidden="true">↗</span></button>
+                    <small>A notificação aparece aqui na tela.</small>
+                    <p id="notificacao" class="notificacao" role="status" aria-live="polite" aria-atomic="true"></p>
+                </div>
+            </aside>
+        </div>
 
-        // 3. Adiciona os pontos.
-        aluno.AdicionarXp(50);
-
-        // 4. Exibe os resultados.
-        document.getElementById("painelResumo").textContent = [
-            administrador.GerarPainelResumo(),
-            responsavel.GerarPainelResumo(),
-            "ANTES DE ADICIONAR XP:\n" + resumoInicial,
-            "DEPOIS DE ADICIONAR XP:\n" + aluno.GerarPainelResumo(),
-            "Senha correta: " + aluno.Autenticar("senhaTeste"),
-            "Senha incorreta: " + aluno.Autenticar("outraSenha")
-        ].join("\n\n");
-    </script>
+        <section class="cartao historico-cartao" aria-labelledby="tituloHistorico">
+            <div class="cabecalho-historico"><div class="cabecalho-cartao"><span class="etapa">03</span><div><h2 id="tituloHistorico">Seu caminho até aqui</h2><p>Uma sessão, uma nova conquista.</p></div></div><span id="contadorSessoes" class="contador">0 sessões</span></div>
+            <div id="historicoVazio" class="historico-vazio"><span aria-hidden="true">✧</span><div><strong>O primeiro passo pode ser agora.</strong><p>Registre uma sessão para ver seu histórico aparecer aqui.</p></div></div>
+            <ul id="historico" class="historico" aria-label="Sessões concluídas"></ul>
+        </section>
+        <noscript><p>Ative o JavaScript do navegador para usar a tela de estudos.</p></noscript>
+    </main>
+    <footer><span>FecapStudy <span aria-hidden="true">·</span> Aprender transforma.</span><span>Demonstração local: os registros são reiniciados ao recarregar a página.</span></footer>
 </body>
-
 </html>
