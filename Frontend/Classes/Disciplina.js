@@ -5,7 +5,7 @@ class Disciplina {
         this.codigo = codigo;
         this.nome = nome;
         this.categoria = categoria;
-        this.cargaHorariaSemanalHoras;
+        this.cargaHorariaSemanal = cargaHorariaSemanal;
 
         if (cargaHorariaSemanal <= 0) {
 
@@ -20,6 +20,6 @@ class Disciplina {
 
     ExibirResumo() {
 
-        return `[${codigo}] ${nome} ${categoria} ${cargaHorariaSemanal}`
+        return console.log(`[${codigo}] ${nome} (${categoria}) ${cargaHorariaSemanal}`);
     }
 }

@@ -13,14 +13,37 @@
     <!-- Carregar classe primeiro -->
     <script src="./Classes/Usuario.js"></script>
     <script src="./Classes/Discente.js"></script>
-    <script src="./Classes/Adminstrador.js"></script>
+    <script src="./Classes/Administrador.js"></script>
     <script src="./Classes/Responsavel.js"></script>
 
     <script>
-        const aluno = new Discente("Pedro", "pedro@exemplo.com", "");
+        const administrador = new Administrador(
+            1, "Pedro", "pedro@exemplo.com", "senhaTeste", "Coordenação PI"
+        );
 
-        document.getElementById("painelResumo").textContent =
-            aluno.GerarPainelResumo();
+        const responsavel = new Responsavel(
+            2, "Maria", "maria@exemplo.com", "senhaTeste", "Mãe"
+        );
+        
+        const aluno = new Discente(
+            3, "Ana", "ana@exemplo.com", "senhaTeste", "20260001"
+        );
+
+        // 2. Guarda o resumo ANTES de adicionar XP.
+        const resumoInicial = aluno.GerarPainelResumo();
+
+        // 3. Adiciona os pontos.
+        aluno.AdicionarXp(50);
+
+        // 4. Exibe os resultados.
+        document.getElementById("painelResumo").textContent = [
+            administrador.GerarPainelResumo(),
+            responsavel.GerarPainelResumo(),
+            "ANTES DE ADICIONAR XP:\n" + resumoInicial,
+            "DEPOIS DE ADICIONAR XP:\n" + aluno.GerarPainelResumo(),
+            "Senha correta: " + aluno.Autenticar("senhaTeste"),
+            "Senha incorreta: " + aluno.Autenticar("outraSenha")
+        ].join("\n\n");
     </script>
 </body>
 
