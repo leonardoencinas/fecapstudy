@@ -1,4 +1,4 @@
-class MeuNotificador extends INotificador {
+class NotificadorWhatsapp extends INotificador {
 
     ObterCanal() {
 
