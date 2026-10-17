@@ -35,16 +35,12 @@ class MetaEstudo extends IExportavelJson {
         }
     }
 
-    CalcularPercentual() { 
-
-        const percentual = (this.#minutosCumprido / this.#metaMinutosSemana) * 100;
-
-        if (percentual > 100.0) {
-
-            percentual = 100;
-        }
-
-        return Math.min(percentual, 100.0);
+    CalcularPercentual() {
+        const percentual =
+            (this.#minutosCumprido / this.#metaMinutosSemana) * 100;
+    
+        // Retorna o percentual calculado, limitado a 100.
+        return Math.min(percentual, 100);
     }
 
     EstaCumprida() {

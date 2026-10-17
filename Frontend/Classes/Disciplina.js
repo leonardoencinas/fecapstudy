@@ -1,7 +1,5 @@
 class Disciplina {
-    
     constructor(codigo, nome, categoria, cargaHorariaSemanal) {
-
         this.codigo = codigo;
         this.nome = nome;
         this.categoria = categoria;
@@ -17,37 +15,8 @@ class Disciplina {
     }
 
     ExibirResumo() {
-        return console.log(
+        console.log(
             `[${this.codigo}] ${this.nome} (${this.categoria}) ${this.cargaHorariaSemanal}`
         );
-    }
-}
-
-
-
-
-
-class TrilhaEstudo {
-    #titulo;
-    #administrador;
-    #disciplinas = [];
-
-    constructor(titulo, administrador) {
-        this.#titulo = titulo;
-        this.#administrador = administrador;
-    }
-
-    AdicionarDisciplina(disciplina) {
-        this.#disciplinas.push(disciplina);
-    }
-
-    CalcularCargaHorariaTotal() {
-        let total = 0;
-
-        for (let disciplina of this.#disciplinas) {
-            total += disciplina.cargaHorariaSemanal;
-        }
-
-        return total;
     }
 }
