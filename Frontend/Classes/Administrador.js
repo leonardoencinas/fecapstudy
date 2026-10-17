@@ -15,9 +15,9 @@ class Administrador extends Usuario {
 
     GerarPainelResumo() {
         return `Perfil: ${this.ObterTipoPerfil()}
-ID: ${this.id}
-Nome: ${this.nome}
-E-mail: ${this.email}
-Cargo: ${this.#cargo}`;
+        ID: ${this.id}
+        Nome: ${this.nome}
+        E-mail: ${this.email}
+        Cargo: ${this.#cargo}`;
     }
 }
