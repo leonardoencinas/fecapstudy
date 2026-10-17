@@ -24,34 +24,7 @@ class Disciplina {
 }
 
 
-class Responsavel extends Usuario {
-    #parentesco;
-    #discentesAcompanhados = [];
-    #metasEstudo = new Map();
 
-    constructor(id, nome, email, senha, parentesco) {
-        super(id, nome, email, senha);
-        this.#parentesco = parentesco;
-    }
-
-    VincularDiscente(discente) {
-        if (!this.#discentesAcompanhados.includes(discente)) {
-            this.#discentesAcompanhados.push(discente);
-        }
-    }
-
-    ObterTipoPerfil() {
-        return "Responsável";
-    }
-
-    GerarPainelResumo() {
-        return `Perfil: ${this.ObterTipoPerfil()}
-ID: ${this.id}
-Nome: ${this.nome}
-E-mail: ${this.email}
-Parentesco: ${this.#parentesco}`;
-    }
-}
 
 
 class TrilhaEstudo {

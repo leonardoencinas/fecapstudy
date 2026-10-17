@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,6 +24,7 @@
     <script defer src="Classes/NotificadorEmail.js"></script>
     <script defer src="app.js"></script>
 </head>
+
 <body>
     <a class="pular-conteudo" href="#formularioEstudo">Ir para o formulário</a>
     <header class="topo">
@@ -37,37 +39,67 @@
                 <h1 id="tituloPagina">Pequenos estudos.<br><span>Grandes conquistas.</span></h1>
                 <p class="subtitulo">Registre seu foco de hoje e acompanhe o quanto você já avançou.</p>
             </div>
-            <div class="selo-xp"><span class="estrela" aria-hidden="true">✦</span><div><strong id="totalXp">0 XP</strong><span>Experiência acumulada</span></div></div>
+            <div class="selo-xp"><span class="estrela" aria-hidden="true">✦</span>
+                <div><strong id="totalXp">0 XP</strong><span>Experiência acumulada</span></div>
+            </div>
         </section>
 
         <section class="perfis" aria-label="Perfis">
             <article class="perfil">
                 <span class="avatar" aria-hidden="true">D</span>
-                <div><h2>Quem aprende</h2><pre id="resumoDiscente"></pre></div>
+                <div>
+                    <h2>Quem aprende</h2>
+                    <pre id="resumoDiscente"></pre>
+                </div>
             </article>
             <article class="perfil">
                 <span class="avatar responsavel" aria-hidden="true">R</span>
-                <div><h2>Quem acompanha</h2><pre id="resumoResponsavel"></pre></div>
+                <div>
+                    <h2>Quem acompanha</h2>
+                    <pre id="resumoResponsavel"></pre>
+                </div>
             </article>
         </section>
 
         <div class="area-estudo">
             <section class="cartao formulario-cartao" aria-labelledby="tituloFormulario">
-                <div class="cabecalho-cartao"><span class="etapa">01</span><div><h2 id="tituloFormulario">Registrar um estudo</h2><p>Reserve um momento. Dê o próximo passo.</p></div></div>
-                <form id="formularioEstudo">
-                    <div class="campo"><label for="disciplina">Disciplina</label><select id="disciplina" required></select></div>
-                    <div class="campo"><label for="modalidade">Como você estudou?</label><select id="modalidade" required><option value="Pomodoro">Pomodoro</option><option value="Exercicios">Exercícios</option><option value="Leitura">Leitura</option></select></div>
-                    <div class="campos-lado-a-lado">
-                        <div class="campo"><label for="minutos">Duração (minutos)</label><input id="minutos" type="number" min="1" step="1" placeholder="Ex.: 25" required inputmode="numeric"><small>Tempo dedicado ao estudo.</small></div>
-                        <div class="campo"><label id="rotuloExtra" for="dadoExtra">Ciclos concluídos</label><input id="dadoExtra" type="number" min="1" step="1" placeholder="Ex.: 1" required inputmode="numeric" aria-describedby="dicaExtra"><small id="dicaExtra">Quantos ciclos de foco você completou?</small></div>
+                <div class="cabecalho-cartao"><span class="etapa">01</span>
+                    <div>
+                        <h2 id="tituloFormulario">Registrar um estudo</h2>
+                        <p>Reserve um momento. Dê o próximo passo.</p>
                     </div>
-                    <button class="botao-principal" type="submit">Registrar estudo <span aria-hidden="true">↗</span></button>
+                </div>
+                <form id="formularioEstudo">
+                    <div class="campo"><label for="disciplina">Disciplina</label><select id="disciplina"
+                            required></select></div>
+                    <div class="campo"><label for="modalidade">Como você estudou?</label><select id="modalidade"
+                            required>
+                            <option value="Pomodoro">Pomodoro</option>
+                            <option value="Exercicios">Exercícios</option>
+                            <option value="Leitura">Leitura</option>
+                        </select></div>
+                    <div class="campos-lado-a-lado">
+                        <div class="campo"><label for="minutos">Duração (minutos)</label><input id="minutos"
+                                type="number" min="1" step="1" placeholder="Ex.: 25" required
+                                inputmode="numeric"><small>Tempo dedicado ao estudo.</small></div>
+                        <div class="campo"><label id="rotuloExtra" for="dadoExtra">Ciclos concluídos</label><input
+                                id="dadoExtra" type="number" min="1" step="1" placeholder="Ex.: 1" required
+                                inputmode="numeric" aria-describedby="dicaExtra"><small id="dicaExtra">Quantos ciclos de
+                                foco você completou?</small></div>
+                    </div>
+                    <button class="botao-principal" type="submit">Registrar estudo <span
+                            aria-hidden="true">↗</span></button>
                     <p id="mensagemFormulario" class="mensagem" role="status" aria-live="polite" aria-atomic="true"></p>
                 </form>
             </section>
 
             <aside class="cartao meta-cartao" aria-labelledby="tituloMeta">
-                <div class="cabecalho-cartao"><span class="etapa">02</span><div><h2 id="tituloMeta">Sua meta semanal</h2><p>Constância vale mais que pressa.</p></div></div>
+                <div class="cabecalho-cartao"><span class="etapa">02</span>
+                    <div>
+                        <h2 id="tituloMeta">Sua meta semanal</h2>
+                        <p>Constância vale mais que pressa.</p>
+                    </div>
+                </div>
                 <div class="meta-valor"><strong id="percentualMeta">0%</strong><span>da meta<br>concluída</span></div>
                 <label class="sr-only" for="barraProgresso">Progresso da meta semanal</label>
                 <progress id="barraProgresso" value="0" max="100">0%</progress>
@@ -75,7 +107,8 @@
                 <p id="incentivoMeta" class="incentivo-meta">Faltam 200 minutos para alcançar sua meta.</p>
                 <div class="notificar-area">
                     <p>Compartilhe cada avanço.</p>
-                    <button id="botaoNotificar" class="botao-secundario" type="button">Notificar responsável <span aria-hidden="true">↗</span></button>
+                    <button id="botaoNotificar" class="botao-secundario" type="button">Notificar responsável <span
+                            aria-hidden="true">↗</span></button>
                     <small>A notificação aparece aqui na tela.</small>
                     <p id="notificacao" class="notificacao" role="status" aria-live="polite" aria-atomic="true"></p>
                 </div>
@@ -83,12 +116,27 @@
         </div>
 
         <section class="cartao historico-cartao" aria-labelledby="tituloHistorico">
-            <div class="cabecalho-historico"><div class="cabecalho-cartao"><span class="etapa">03</span><div><h2 id="tituloHistorico">Seu caminho até aqui</h2><p>Uma sessão, uma nova conquista.</p></div></div><span id="contadorSessoes" class="contador">0 sessões</span></div>
-            <div id="historicoVazio" class="historico-vazio"><span aria-hidden="true">✧</span><div><strong>O primeiro passo pode ser agora.</strong><p>Registre uma sessão para ver seu histórico aparecer aqui.</p></div></div>
+            <div class="cabecalho-historico">
+                <div class="cabecalho-cartao"><span class="etapa">03</span>
+                    <div>
+                        <h2 id="tituloHistorico">Seu caminho até aqui</h2>
+                        <p>Uma sessão, uma nova conquista.</p>
+                    </div>
+                </div><span id="contadorSessoes" class="contador">0 sessões</span>
+            </div>
+            <div id="historicoVazio" class="historico-vazio"><span aria-hidden="true">✧</span>
+                <div><strong>O primeiro passo pode ser agora.</strong>
+                    <p>Registre uma sessão para ver seu histórico aparecer aqui.</p>
+                </div>
+            </div>
             <ul id="historico" class="historico" aria-label="Sessões concluídas"></ul>
         </section>
-        <noscript><p>Ative o JavaScript do navegador para usar a tela de estudos.</p></noscript>
+        <noscript>
+            <p>Ative o JavaScript do navegador para usar a tela de estudos.</p>
+        </noscript>
     </main>
-    <footer><span>FecapStudy <span aria-hidden="true">·</span> Aprender transforma.</span><span>Demonstração local: os registros são reiniciados ao recarregar a página.</span></footer>
+    <footer><span>FecapStudy <span aria-hidden="true">·</span> Aprender transforma.</span><span>Demonstração local: os
+            registros são reiniciados ao recarregar a página.</span></footer>
 </body>
+
 </html>
