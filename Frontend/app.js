@@ -18,7 +18,7 @@ const discente = new Discente(
 );
 
 const responsavel = new Responsavel(
-    2, "Maria", "maria@exemplo.com", "senhaTeste", "Mãe"
+    2, "Maria", "maria@exemplo.com", "senhaTeste", "Mãe", "11987654321"
 );
 
 // Associa o aluno ao responsável.
@@ -35,7 +35,8 @@ const campoMinutos = document.getElementById("minutos");
 const campoExtra = document.getElementById("dadoExtra");
 const mensagemFormulario = document.getElementById("mensagemFormulario");
 const historico = document.getElementById("historico");
-const notificador = new NotificadorWhatsapp(document.getElementById("notificacao"));
+const numeroDestino = responsavel.telefone || "Contacto não registado";
+const notificador = new NotificadorWhatsapp(responsavel.telefone);
 
 // O select guarda o índice; a sessão recebe o OBJETO Disciplina, não o texto.
 disciplinas.forEach((disciplina, indice) => {
@@ -68,11 +69,20 @@ function atualizarTela() {
     document.getElementById("resumoResponsavel").textContent = responsavel.GerarPainelResumo();
     document.getElementById("totalXp").textContent = `${discente.xpTotal} XP`;
 
-    const percentual = meta.CalcularPercentual();
+    let percentual = meta.CalcularPercentual();
+
+    // Validação para evitar o erro non-finite e NaN%
+
+    if (isNaN(percentual) || !isFinite(percentual)) {
+        percentual = 0;
+    }
+
     document.getElementById("percentualMeta").textContent = `${percentual}%`;
+
     // Pode ultrapassar a meta, mas o desenho da barra ocupa no máximo 100%.
     const barra = document.getElementById("barraProgresso");
     barra.value = Math.min(100, Math.max(0, percentual));
+
     barra.setAttribute("aria-valuetext", `${meta.minutosRegistrados} de ${meta.metaMinutosSemana} minutos`);
     document.getElementById("minutosMeta").textContent = `${meta.minutosRegistrados} de ${meta.metaMinutosSemana} min`;
 
@@ -81,7 +91,7 @@ function atualizarTela() {
         ? "Meta alcançada! Cada minuto a mais é uma nova conquista."
         : `Faltam ${faltam} minutos para alcançar sua meta.`;
 
-    const sessoes = discente.sessoes;
+    const sessoes = discente.sessoes || [];
     document.getElementById("contadorSessoes").textContent = `${sessoes.length} ${sessoes.length === 1 ? "sessão" : "sessões"}`;
     document.getElementById("historicoVazio").hidden = sessoes.length > 0;
     historico.replaceChildren();
@@ -94,9 +104,9 @@ function atualizarTela() {
         const feedback = document.createElement("p");
         const xp = document.createElement("span");
 
-        modalidade.textContent = sessao.obterModalidade() === "Exercicios" ? "Exercícios" : sessao.obterModalidade();
+        modalidade.textContent = sessao.ObterModalidade() === "Exercicios" ? "Exercícios" : sessao.ObterModalidade();
         feedback.textContent = sessao.GerarFeedback();
-        xp.textContent = `+${sessao.calcularXp()} XP`;
+        xp.textContent = `+${sessao.CalcularXp()} XP`;
         xp.className = "xp-sessao";
 
         informacoes.append(modalidade, feedback);
@@ -124,7 +134,7 @@ formulario.addEventListener("submit", (evento) => {
                 sessao = new SessaoPomodoro(disciplina, minutos, dadoExtra);
                 break;
             case "Exercicios":
-                sessao = new SessaoExercicios(disciplina, minutos, dadoExtra);
+                sessao = new SessaoExercicios(disciplina, minutos, dadoExtra, dadoExtra);
                 break;
             case "Leitura":
                 sessao = new SessaoLeitura(disciplina, minutos, dadoExtra);
@@ -140,7 +150,7 @@ formulario.addEventListener("submit", (evento) => {
 
         atualizarTela();
         document.getElementById("notificacao").textContent = "";
-        mensagemFormulario.textContent = `Estudo registrado! Você ganhou ${sessao.calcularXp()} XP.`;
+        mensagemFormulario.textContent = `Estudo registrado! Você ganhou ${sessao.CalcularXp()} XP.`;
         campoMinutos.value = "";
         campoExtra.value = "";
     } catch (erro) {
@@ -151,9 +161,25 @@ formulario.addEventListener("submit", (evento) => {
 
 // 6. BOTÃO NOTIFICAR RESPONSÁVEL
 document.getElementById("botaoNotificar").addEventListener("click", () => {
-    notificador.Notificar(
-        `${responsavel.nome}, ${discente.nome} estudou ${meta.minutosRegistrados} de ${meta.metaMinutosSemana} minutos da meta e acumulou ${discente.xpTotal} XP. Progresso: ${meta.CalcularPercentual()}%.`
-    );
+    try {
+        const mensagem = `${responsavel.nome}, ${discente.nome} estudou ${meta.minutosRegistrados} de ${meta.metaMinutosSemana} minutos da meta e acumulou ${discente.xpTotal} XP. Progresso: ${meta.CalcularPercentual()}%.`;
+
+        // CORREÇÃO AQUI: trocado Notificar por EnviarAlerta
+        const resultado = notificador.EnviarAlerta(mensagem);
+
+        // Atualiza a tela com a resposta do notificador
+        const campoNotificacao = document.getElementById("notificacao");
+        if (campoNotificacao) {
+            campoNotificacao.textContent = resultado;
+            campoNotificacao.className = "sucesso";
+        }
+    } catch (erro) {
+        const campoNotificacao = document.getElementById("notificacao");
+        if (campoNotificacao) {
+            campoNotificacao.textContent = erro.message;
+            campoNotificacao.className = "erro";
+        }
+    }
 });
 
 campoModalidade.addEventListener("change", atualizarModalidade);

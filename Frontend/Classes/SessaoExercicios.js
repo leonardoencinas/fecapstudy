@@ -1,9 +1,10 @@
 class SessaoExercicios extends SessaoEstudo {
 
-    constructor(disciplina, duracaoMinutos, totalQuestoes, acertos) {
+    constructor(disciplina, duracaoMinutos, totalQuestoes = 0, acertos = 0) {
         super(disciplina, duracaoMinutos);
-        this.totalQuestoes = totalQuestoes;
-        this.acertos = acertos;
+        // Garante que ambos os campos sejam números válidos
+        this.totalQuestoes = Number(totalQuestoes) || 0;
+        this.acertos = Number(acertos) || 0;
     }
 
     ObterModalidade() {
@@ -15,9 +16,11 @@ class SessaoExercicios extends SessaoEstudo {
     }
 
     GerarFeedback() {
-        let porcentagem = (this.acertos / this.totalQuestoes) * 100;
+        const porcentagem = this.totalQuestoes > 0 
+            ? (this.acertos / this.totalQuestoes) * 100 
+            : 0;
 
         return `${super.GerarFeedback()} | Acertos: ${porcentagem.toFixed(0)}%`;
     }
 }
-
+ 

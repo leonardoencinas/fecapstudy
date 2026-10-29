@@ -8,6 +8,14 @@ class Discente extends Usuario {
         this.#ra = String(ra);
     }
 
+    get sessoes() {
+        return this.#historico;
+    }
+
+    get xpTotal() {
+        return this.#xpTotal;
+    }
+
     AdicionarXp(pontos) {
         if (!Number.isInteger(pontos)) {
             throw new Error("Os pontos de XP devem ser inteiros.");
@@ -28,8 +36,7 @@ class Discente extends Usuario {
             this.AdicionarXp(sessao.CalcularXp());
 
             return;
-        }
-
+        }   
 
         // FORMA 2:
         // RegistrarEstudo(Disciplina d, int minutos)
@@ -102,10 +109,10 @@ class Discente extends Usuario {
 
     GerarPainelResumo() {
         return `Perfil: ${this.ObterTipoPerfil()}
-ID: ${this.id}
-Nome: ${this.nome}
-E-mail: ${this.email}
-RA: ${this.#ra}
-XP total: ${this.#xpTotal}`;
+        ID: ${this.id}
+        Nome: ${this.nome}
+        E-mail: ${this.email}
+        RA: ${this.#ra}
+        XP total: ${this.#xpTotal}`;
     }
 }

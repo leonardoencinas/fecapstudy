@@ -3,10 +3,19 @@ class MetaEstudo extends IExportavelJson {
     #metaMinutosSemana;
     #minutosCumprido = 0;
 
-    constructor(metaMinutosSemana, minutosCumpridos, novaMeta) {
+    constructor(metaMinutosSemana = 300, minutosCumpridos = 0) {
 
         super();
-        this.RedefinirMeta(novaMeta);
+        this.#minutosCumprido = minutosCumpridos;
+        this.RedefinirMeta(metaMinutosSemana);
+    }
+
+    get minutosRegistrados() {
+        return this.#minutosCumprido;
+    }
+
+    get metaMinutosSemana() {
+        return this.#metaMinutosSemana;
     }
 
     RegistrarAvanco(minutos) {
@@ -23,7 +32,7 @@ class MetaEstudo extends IExportavelJson {
 
     RedefinirMeta(novaMeta) {
 
-        if (novaMeta < 30) {
+        if (!novaMeta || novaMeta < 30) {
 
             this.#metaMinutosSemana = 30;
         } else if (novaMeta > 3000) {
@@ -36,10 +45,8 @@ class MetaEstudo extends IExportavelJson {
     }
 
     CalcularPercentual() {
-        const percentual =
-            (this.#minutosCumprido / this.#metaMinutosSemana) * 100;
-    
-        // Retorna o percentual calculado, limitado a 100.
+        if (!this.#metaMinutosSemana) return 0;
+        const percentual = (this.#minutosCumprido / this.#metaMinutosSemana) * 100;
         return Math.min(percentual, 100);
     }
 

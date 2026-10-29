@@ -1,11 +1,17 @@
 class Responsavel extends Usuario {
     #parentesco;
+    #telefone;
     #discentesAcompanhados = [];
     #metasEstudo = new Map();
 
-    constructor(id, nome, email, senha, parentesco) {
+    constructor(id, nome, email, senha, parentesco, telefone) {
         super(id, nome, email, senha);
         this.#parentesco = parentesco;
+        this.#telefone = telefone;
+    }
+
+    get telefone() {
+        return this.#telefone;
     }
 
     VincularDiscente(discente) {
@@ -20,10 +26,11 @@ class Responsavel extends Usuario {
 
     GerarPainelResumo() {
         return `Perfil: ${this.ObterTipoPerfil()}
-ID: ${this.id}
-Nome: ${this.nome}
-E-mail: ${this.email}
-Parentesco: ${this.#parentesco}`;
+        ID: ${this.id}
+        Nome: ${this.nome}
+        E-mail: ${this.email}
+        Telefone: ${this.#telefone}
+        Parentesco: ${this.#parentesco}`;
     }
 }
 

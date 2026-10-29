@@ -1,13 +1,16 @@
 class NotificadorWhatsapp extends INotificador {
+    #telefone;
 
-    ObterCanal() {
-
-        return "Meu Canal";
+    constructor(telefone) {
+        super();
+        this.#telefone = telefone;
     }
 
-    EnviarAlerta(destinatario, mensagem) {
+    ObterCanal() {
+        return "WhatsApp";
+    }
 
-        console.log(`Enviando para ${destinatario}`)
-        return true;
+    EnviarAlerta(mensagem) {
+        return `[${this.ObterCanal()}] Mensagem enviada para ${this.#telefone}: "${mensagem}"`;
     }
 }

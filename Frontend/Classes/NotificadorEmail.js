@@ -1,13 +1,14 @@
 class NotificadorEmail extends INotificador {
-
-    ObterCanal() {
-
-        return "Meu Canal";
+    constructor(email) {
+        super();
+        this.email = email;
     }
 
-    EnviarAlerta(destinatario, mensagem) {
+    ObterCanal() {
+        return "E-mail";
+    }
 
-        console.log(`Enviando para ${destinatario}`)
-        return true;
+    EnviarAlerta(mensagem) {
+        return `[${this.ObterCanal()}] Notificação enviada para ${this.email}: "${mensagem}"`;
     }
 }

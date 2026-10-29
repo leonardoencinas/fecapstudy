@@ -15,10 +15,10 @@ class ConectorBackend {
             body: JSON.stringify({
                 discenteNome: nomeAluno,
                 disciplina: sessao.getDisciplina().getNome(),
-                tipoModalidade: sessao.obterModalidade(),
+                tipoModalidade: sessao.ObterModalidade(),
                 duracaoMinutos: sessao.getDuracaoMinutos(),
-                xpGanho: sessao.calcularXp(),
-                resumoFeedback: sessao.gerarFeedback()
+                xpGanho: sessao.CalcularXp(),
+                resumoFeedback: sessao.GerarFeedback()
             })
         });
         
