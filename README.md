@@ -40,7 +40,33 @@ O projeto foi construído utilizando os pilares da POO em JavaScript:
 
 ```text
 fecapstudy/
-├── index.html        # Estrutura e formulários da aplicação
-├── style.css         # Estilização visual e layout
-├── app.js            # Lógica principal, classes e manipuladores de eventos
-└── README.md         # Documentação do projeto
+├── Backend/
+│   ├── Source/
+│   ├── BackendEstudoAPI.exe
+│   ├── banco_estudo.sql
+│   ├── dados_estudo_local.json
+│   ├── iniciar_backend.bat
+│   ├── mysql_config.txt
+│   └── ... (dependências e bibliotecas do .NET)
+├── Frontend/
+│   ├── Classes/
+│   │   ├── Administrador.js
+│   │   ├── ConectorBackend.js
+│   │   ├── Discente.js
+│   │   ├── Disciplina.js
+│   │   ├── IExportavelJson.js
+│   │   ├── INotificador.js
+│   │   ├── MetaEstudo.js
+│   │   ├── NotificadorEmail.js
+│   │   ├── NotificadorWhatsapp.js
+│   │   ├── Responsavel.js
+│   │   ├── SessaoEstudo.js
+│   │   ├── SessaoExercicios.js
+│   │   ├── SessaoLeitura.js
+│   │   ├── SessaoPomodoro.js
+│   │   └── Usuario.js
+│   ├── app.js
+│   ├── index.html
+│   └── style.css
+├── package-lock.json
+└── README.md
