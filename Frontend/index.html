@@ -25,6 +25,10 @@
     <script defer src="Classes/INotificador.js"></script>
     <script defer src="Classes/NotificadorWhatsapp.js"></script>
     <script defer src="Classes/NotificadorEmail.js"></script>
+    <script defer src="Classes/ItemCronograma.js"></script>
+    <script defer src="Classes/PlanoEstudo.js"></script>
+    <script defer src="Classes/ServicoAlertaResponsavel.js"></script>
+    <script src="Classes/ClienteBackendEstudo.js"></script>
     <script defer src="app.js"></script>
 
 
@@ -38,6 +42,11 @@
     </header>
 
     <main>
+
+        <button id="botaoCarregarHistorico" type="button">Carregar Histórico do Servidor</button>
+        <p id="mensagemServidor"></p>
+        <ul id="historicoServidor"></ul>
+
         <section class="apresentacao" aria-labelledby="tituloPagina">
             <div>
                 <p class="sobretitulo">APRENDER É CONSTRUIR, TODO DIA.</p>

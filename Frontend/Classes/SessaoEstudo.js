@@ -15,7 +15,7 @@ class SessaoEstudo extends IExportavelJson {
     }
 
     GerarFeedback() {
-        return `${this.ObterModalidade()} em ${this.disciplina} (${this.duracaoMinutos} min) -> +${this.CalcularXp()} XP`;
+        return `${this.ObterModalidade()} em ${this.disciplina.nome} (${this.duracaoMinutos} min) -> +${this.CalcularXp()} XP`;
     }
 
     ParaJson() {

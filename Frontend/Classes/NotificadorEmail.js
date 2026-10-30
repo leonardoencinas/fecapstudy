@@ -8,7 +8,8 @@ class NotificadorEmail extends INotificador {
         return "E-mail";
     }
 
-    EnviarAlerta(mensagem) {
-        return `[${this.ObterCanal()}] Notificação enviada para ${this.email}: "${mensagem}"`;
+    EnviarAlerta(destinatario, mensagem) {
+        console.log(`[E-mail} Para: ${destinatario} | Mensagem: ${mensagem}`)
+        return true;
     }
 }

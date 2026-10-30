@@ -83,6 +83,16 @@
       "xpGanho": 135,
       "resumoFeedback": "Leitura e modelagem UML da arquitetura da plataforma.",
       "dataRegistro": "2026-10-16 17:51"
+    },
+    {
+      "id": 4,
+      "discenteNome": "Ana",
+      "disciplina": "Programa\u00E7\u00E3o Orientada a Objetos",
+      "tipoModalidade": "Leitura e Resumo",
+      "duracaoMinutos": 100,
+      "xpGanho": 400,
+      "resumoFeedback": "Leitura e Resumo em Programa\u00E7\u00E3o Orientada a Objetos (100 min) -\u003E \u002B400 XP",
+      "dataRegistro": "2026-10-30 20:42"
     }
   ],
   "metas": [

@@ -5,7 +5,7 @@ class INotificador {
         throw new Error("O método ObterCanal() precisa ser implementado na classe filha.")
     }
 
-    EnviarAlerta() {
+    EnviarAlerta(destinatario, mensagem) {
 
         throw new Error("O método EnviarAlerta() precisa ser implementado na classe filha.")
     }

@@ -51,7 +51,7 @@ fecapstudy/
 ├── Frontend/
 │   ├── Classes/
 │   │   ├── Administrador.js
-│   │   ├── ConectorBackend.js
+│   │   ├── ClienteBackendEstudo.js
 │   │   ├── Discente.js
 │   │   ├── Disciplina.js
 │   │   ├── IExportavelJson.js

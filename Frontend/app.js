@@ -36,7 +36,12 @@ const campoExtra = document.getElementById("dadoExtra");
 const mensagemFormulario = document.getElementById("mensagemFormulario");
 const historico = document.getElementById("historico");
 const numeroDestino = responsavel.telefone || "Contacto não registado";
+
+const cliente = new ClienteBackendEstudo();
+
 const notificador = new NotificadorWhatsapp(responsavel.telefone);
+const notificadorEmail = new NotificadorEmail(responsavel.email);
+const servicoAlerta = new ServicoAlertaResponsavel();
 
 // O select guarda o índice; a sessão recebe o OBJETO Disciplina, não o texto.
 disciplinas.forEach((disciplina, indice) => {
@@ -148,6 +153,14 @@ formulario.addEventListener("submit", (evento) => {
         discente.RegistrarEstudo(sessao);
         meta.RegistrarAvanco(minutos);
 
+        // Avalia a meta a cada estudo registrado
+        servicoAlerta.AvaliarDiscente(discente, meta, responsavel, notificadorEmail);
+
+        cliente.EnviarSessao(discente.nome, sessao)
+            .catch(erro => console.error("Backend:", erro.message));
+
+        atualizarTela();
+
         atualizarTela();
         document.getElementById("notificacao").textContent = "";
         mensagemFormulario.textContent = `Estudo registrado! Você ganhou ${sessao.CalcularXp()} XP.`;
@@ -164,14 +177,19 @@ document.getElementById("botaoNotificar").addEventListener("click", () => {
     try {
         const mensagem = `${responsavel.nome}, ${discente.nome} estudou ${meta.minutosRegistrados} de ${meta.metaMinutosSemana} minutos da meta e acumulou ${discente.xpTotal} XP. Progresso: ${meta.CalcularPercentual()}%.`;
 
-        // CORREÇÃO AQUI: trocado Notificar por EnviarAlerta
-        const resultado = notificador.EnviarAlerta(mensagem);
+        const destinatario = responsavel.telefone; // ajuste para o campo que existe na sua classe
 
-        // Atualiza a tela com a resposta do notificador
+        const enviado = notificador.EnviarAlerta(destinatario, mensagem);
+
         const campoNotificacao = document.getElementById("notificacao");
         if (campoNotificacao) {
-            campoNotificacao.textContent = resultado;
-            campoNotificacao.className = "sucesso";
+            if (enviado) {
+                campoNotificacao.textContent = `[${notificador.ObterCanal()}] Alerta enviado para ${destinatario}: "${mensagem}"`;
+                campoNotificacao.className = "sucesso";
+            } else {
+                campoNotificacao.textContent = "Não foi possível enviar o alerta.";
+                campoNotificacao.className = "erro";
+            }
         }
     } catch (erro) {
         const campoNotificacao = document.getElementById("notificacao");
@@ -182,6 +200,31 @@ document.getElementById("botaoNotificar").addEventListener("click", () => {
     }
 });
 
+
+// Missão 10
+document.getElementById("botaoCarregarHistorico").addEventListener("click", async () => {
+    const lista = document.getElementById("historicoServidor");
+    const aviso = document.getElementById("mensagemServidor");
+    try {
+        const sessoes = await cliente.ListarSessoes();
+        lista.replaceChildren();
+        aviso.textContent = `${sessoes.length} sessões gravadas no servidor.`;
+
+        sessoes.forEach((s) => {
+            const item = document.createElement("li");
+            item.textContent = `${s.dataRegistro} | ${s.discenteNome} | ${s.disciplina} (${s.tipoModalidade}, ${s.duracaoMinutos} min) -> +${s.xpGanho} XP | ${s.resumoFeedback}`;
+            lista.appendChild(item);
+        });
+    } catch (erro) {
+        aviso.textContent = `Não foi possível carregar: ${erro.message}`;
+    }
+});
+
 campoModalidade.addEventListener("change", atualizarModalidade);
 atualizarModalidade();
 atualizarTela();
+
+const plano = new PlanoEstudo();
+plano.AdicionarItem("Segunda", 60);
+plano.AdicionarItem("Quarta", 45);
+console.log(plano.ObterTotalMinutos()); // 105

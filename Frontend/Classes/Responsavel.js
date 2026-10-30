@@ -14,6 +14,10 @@ class Responsavel extends Usuario {
         return this.#telefone;
     }
 
+    GetEmail() {
+        return this.email;
+    }
+
     VincularDiscente(discente) {
         if (!this.#discentesAcompanhados.includes(discente)) {
             this.#discentesAcompanhados.push(discente);
